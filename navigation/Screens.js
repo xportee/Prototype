@@ -123,6 +123,7 @@ function HomeStack(props) {
 function AppStack(props) {
   return (
     <Drawer.Navigator
+      drawerPosition="right"
       style={{ flex: 1 }}
       drawerContent={props => (
         <CustomDrawerContent {...props} profile={profile} />
