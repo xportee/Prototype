@@ -1,13 +1,17 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, View, Image } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
-
+import { Card, ListItem} from 'react-native-elements'
 import { Icon, Product } from '../components/';
+import Carousel from 'react-native-snap-carousel';
+
 
 const { width } = Dimensions.get('screen');
 import products from '../constants/products';
 
-export default class Home extends React.Component {
+
+
+export default class HomeScreen extends React.Component {
   renderSearch = () => {
     const { navigation } = this.props;
     const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
@@ -45,11 +49,53 @@ export default class Home extends React.Component {
     )
   }
 
+  renderFeature = () => {
+    return (
+      <Block style={{marginTop:10}}>
+        <Text style={styles.FeatureTitle}> ss</Text>
+        <Image source={{ uri: "https://i1.wp.com/blog.magmalabs.io/wp-content/uploads/2017/11/EmptyBackgroundImage.png"}}
+        style={styles.image}>
+          
+        </Image>
+      </Block>
+      
+    )
+  }
+  
+  renderCard = () => {
+    return(
+      <Card containerStyle={{backgroundColor:"#1D63DC",marginBottom:10}}>
+        <View  >
+        <Card.Title style={{textAlign:'left',fontSize:15,fontWeight:"bold"}}>Halo</Card.Title>
+          <View style={{flex:1,flexDirection:"row"}} >
+            <Icon size={40} name="camera-18" family="GalioExtra" style={{ paddingRight: 8 }} />
+            <Text style={{fontSize:30, fontWeight:"bold", color:"white"}}>ha</Text>
+          </View>
+          <Text style={{color:"white"}} >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+        </View>
+        
+      </Card>
+    )
+  }
+
+  
+  
+
   renderProducts = () => {
     return (
-      <ScrollView
+      <View>
+        
+        <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.products}>
+        <View style={{marginBottom:10}}>
+          {this.renderFeature()}
+          </View>
+        <View>
+          {this.renderCard()}
+        </View>
+        
+          
         <Block flex>
           <Product product={products[0]} horizontal />
           <Block flex row>
@@ -60,6 +106,8 @@ export default class Home extends React.Component {
           <Product product={products[4]} full />
         </Block>
       </ScrollView>
+      </View>
+      
     )
   }
 
@@ -120,4 +168,17 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 2,
     paddingVertical: theme.SIZES.BASE * 2,
   },
+  image: {
+    
+    height:200,
+    width:width
+  },
+  FeatureTitle: {
+    fontSize:30,
+    fontWeight:"bold",
+    textAlign:'left',
+    marginBottom:10
+  },
+  
+
 });

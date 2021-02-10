@@ -2,6 +2,7 @@ import React from 'react';
 import { Easing, Animated, Dimensions } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Block, Text, theme } from "galio-framework";
 
@@ -15,11 +16,18 @@ import SettingsScreen from '../screens/Settings';
 import CustomDrawerContent from './Menu';
 import { Icon, Header } from '../components';
 import { Images, materialTheme } from "../constants/";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { block } from 'react-native-reanimated';
+
+
+
 
 const { width } = Dimensions.get("screen");
 
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+
 
 const profile = {
   avatar: Images.Profile,
@@ -300,18 +308,47 @@ function AppStack(props) {
   );
 }
 
+
+function TabStack(props) {
+  return(
+    <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'ios-information-circle'
+                : 'ios-information-circle-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'ios-list-box' : 'ios-list';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+  )
+}
+
 export default function OnboardingStack(props) {
   return (
-    <Stack.Navigator mode="card" headerMode="none">
-      <Stack.Screen
-        name="Onboarding"
-        component={OnboardingScreen}
-        option={{
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen name="App" component={AppStack} />
-    </Stack.Navigator>
+    
+    <Tab.Navigator>
+    <Tab.Screen name="Home" component={HomeStack} />
+    <Tab.Screen name="Settings" component={SettingsStack} />
+    </Tab.Navigator>
+    
+    
+    
   );
 }
 
