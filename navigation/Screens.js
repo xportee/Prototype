@@ -96,6 +96,7 @@ function ComponentsStack(props) {
   );
 }
 
+
 function HomeStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
@@ -127,6 +128,19 @@ function HomeStack(props) {
     </Stack.Navigator>
   );
 }
+
+const BottomTabNavigator = () => {
+  return (
+    <Tab.Navigator component={HomeScreen}>
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Setting" component={SettingsStack}/>
+      <Tab.Screen name="Component" component={ComponentsStack}/>
+      <Tab.Screen name="Profile" component={ProfileStack}/>
+      
+      
+    </Tab.Navigator>
+  );
+};
 
 function AppStack(props) {
   return (
@@ -163,7 +177,7 @@ function AppStack(props) {
     >
       <Drawer.Screen
         name="Home"
-        component={HomeStack}
+        component={BottomTabNavigator}
         options={{
           drawerIcon: ({ focused }) => (
             <Icon
@@ -342,10 +356,19 @@ function TabStack(props) {
 export default function OnboardingStack(props) {
   return (
     
-    <Tab.Navigator>
-    <Tab.Screen name="Home" component={HomeStack} />
-    <Tab.Screen name="Settings" component={SettingsStack} />
-    </Tab.Navigator>
+      <Stack.Navigator mode="card" headerMode="none">
+      <Stack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        option={{
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen name="App" component={AppStack} />
+      
+      
+    
+    </Stack.Navigator>
     
     
     
