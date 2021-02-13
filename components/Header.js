@@ -58,11 +58,12 @@ class Header extends React.Component {
     const { navigation } = this.props;
     return (
       <Input
-        right
+        left
         color="black"
         style={styles.search}
         placeholder="What are you looking for?"
         placeholderTextColor={theme.COLORS.MUTED}
+        
         iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="magnifying-glass" family="entypo" />}
       />
     )
@@ -91,30 +92,64 @@ class Header extends React.Component {
       !noShadow ? styles.shadow : null,
       transparent ? { backgroundColor: 'rgba(0,0,0,0)' } : null,
     ];
-
-    return (
-      <Block style={headerStyles}>
-        
-        <NavBar
-          back={back}
-          title={title}
-          style={styles.navbar}
-          transparent={transparent}
+    if(title=='Home'){
+      return(
+        <Block  style={headerStyles}>
           
-          rightStyle={{ alignItems: 'center' }}
-          leftStyle={{ flex: 0.3, paddingTop: 2  }}
-          leftIconName={(back ? 'chevron-left' : 'navicon')}
-          leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
-          titleStyle={[
-            styles.title,
-            {color: theme.COLORS[white ? 'WHITE' : 'ICON']},
-          ]}
-          onLeftPress={this.handleLeftPress}
-        />
-        
-        {this.renderHeader()}
-      </Block>
-    );
+          
+          <NavBar
+            back={back}
+            style={styles.navbar}
+            transparent={transparent}
+            title={title}
+            rightStyle={{ alignItems: 'center' }}
+            leftStyle={{ flex: 0.3, paddingTop: 2  }}
+            leftIconName={(back ? 'chevron-left' : 'navicon')}
+            leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
+            titleStyle={[
+              styles.title,
+              {color: theme.COLORS[white ? 'WHITE' : 'ICON']},
+            ]}
+            onLeftPress={this.handleLeftPress}
+          />
+          
+          {this.renderHeader()}
+        </Block>
+      );
+    }
+    else{
+      return (
+        <Block  style={headerStyles}>
+          <Block flex row-reverse>
+            
+          {this.renderHeader()}
+            
+          
+          <NavBar
+            back={back}
+            title={title}
+            style={styles.navbar}
+            transparent={transparent}
+            
+            rightStyle={{ alignItems: 'flex-end' }}
+            leftStyle={{  paddingTop: 2  }}
+            leftIconName={(back ? 'chevron-left' : 'navicon')}
+            leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
+            titleStyle={[
+              styles.title,
+              {color: theme.COLORS[white ? 'WHITE' : 'ICON']},
+            ]}
+            onLeftPress={this.handleLeftPress}
+          />
+          </Block>
+          
+          
+          
+        </Block>
+      );
+    }
+    
+    
   }
 }
 
@@ -133,7 +168,7 @@ const styles = StyleSheet.create({
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
-    paddingTop: 1,
+    paddingTop: 0,
     zIndex: 5,
   },
   shadow: {
@@ -167,6 +202,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderWidth: 1,
     borderRadius: 3,
+    paddingLeft:10,
+    paddingRight:8,
+    
   },
   tabs: {
     marginBottom: 24,

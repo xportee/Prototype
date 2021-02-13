@@ -21,8 +21,14 @@ class Product extends React.Component {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro', { product: product })}>
           <Block flex space="between" style={styles.productDescription}>
-            <Text size={14} style={styles.productTitle}>{product.title}</Text>
-            <Text size={12} muted={!priceColor} color={priceColor}>${product.price}</Text>
+            
+            <Text size={20} style={styles.productTitle}>{product.title}</Text>
+            <Text size={12} style={{textAlign:'right',marginBottom:10}} muted={!priceColor} color={priceColor}>{product.type}</Text>
+            <Text size={12} style={{marginBottom:10}}>{product.description}</Text>
+            <Text size={12} style={{fontWeight:'bold',marginBottom:5}} color='#707070'>Business Value</Text>
+            <Text size={14} style={{fontWeight:'bold',marginBottom:10}} color='#2F7AE5'>Rp {product.price}</Text>
+            <Text size={12} style={{fontWeight:'bold',marginBottom:5}} color='#707070'>Inventors</Text>
+            <Text size={14} style={{fontWeight:'bold',marginBottom:10}} color='#000000'>Rp {product.people}</Text>
           </Block>
         </TouchableWithoutFeedback>
       </Block>
@@ -38,11 +44,13 @@ const styles = StyleSheet.create({
     marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
+    width:200
   },
   productTitle: {
     flex: 1,
     flexWrap: 'wrap',
     paddingBottom: 6,
+    fontWeight:'bold'
   },
   productDescription: {
     padding: theme.SIZES.BASE / 2,

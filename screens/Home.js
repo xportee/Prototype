@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, View, Image } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
-import { Card, ListItem} from 'react-native-elements'
 import { Icon, Product } from '../components/';
-import Carousel from 'react-native-snap-carousel';
+import { ProgressBar, Colors } from 'react-native-paper';
+
 
 
 const { width } = Dimensions.get('screen');
@@ -51,30 +51,89 @@ export default class HomeScreen extends React.Component {
 
   renderFeature = () => {
     return (
-      <Block style={{marginTop:10}}>
-        <Text style={styles.FeatureTitle}> ss</Text>
-        <Image source={{ uri: "https://i1.wp.com/blog.magmalabs.io/wp-content/uploads/2017/11/EmptyBackgroundImage.png"}}
-        style={styles.image}>
+      <Block styles={styles.main}>
+        <Text size={14} style={{fontSize:14, fontWeight:"bold"}}> Featured Business</Text>
+        <Image source={{uri:products[1].image}} style={styles.image}>
+        
           
         </Image>
+        <Block >
+        <Text color="#000000" style={{fontSize:20, fontWeight:"bold"}} >PT. STEINS GATE</Text>
+        <Text size={14} style={{textAlign:'right',marginBottom:5}}>Future Gadget</Text>
+        <Block style={styles.FeatureSubtitle}>
+        <Text size={14}>Menyelamatkan Mayuri dan Kurisu adalah Jalan Ninjaku Kaizokuou ni ore wa naruuu</Text>
+        </Block>
+        <Block style={{marginVertical:10}}>
+          <ProgressBar  progress={0.8} color="#2f7ae5" />
+        </Block>
+        
+        <Block flex row>
+          <Block style={styles.blockRow}>
+            <Text size={14} style={{fontWeight:'bold'}} color='#091a4d'>89%</Text>
+            <Text fontWeight='bold' color='#091a4d'>Funded</Text>
+          </Block >
+          <Block style={styles.blockRow}>
+            <Text size={14} style={{fontWeight:'bold'}} color='#091a4d'>123k</Text>
+            <Text>Inventors</Text>
+          </Block>
+          <Block style={styles.blockRow}>
+            <Text size={14} style={{fontWeight:'bold'}} color='#091a4d'>23</Text>
+            <Text>Days To go</Text>
+          </Block>
+          <Block style={styles.blockRow}>
+            <Block flex row>
+              <Text size={14} style={{fontWeight:'bold'}} color='#2f7ae5'>Rp 100.999.999,00</Text>
+              <Icon name="swap-vert" family="Ionicons"  size={20} color='#000000'/>
+            </Block>
+            <Text>Business Value</Text>
+          </Block>
+          
+        </Block>
+        <Block style={{flex:1,flexDirection:'row-reverse'}}>
+          <Icon name="like2" family="AntDesign"  size={20} color='#000000' style={styles.iconStyle}/>
+          <Icon name="send" family="Feather"  size={20} color='#000000' style={styles.iconStyle}/>
+          <Icon name="bookmark" family="Feather"  size={20} color='#000000' style={styles.iconStyle}/>
+        </Block>
+        </Block>
+        
+        
+      
       </Block>
       
     )
   }
   
+  renderProduct = () => {
+    return (
+      <Block style={styles.main}>
+        <Text size={14} style={{marginBottom:10}}>START INVESTING TODAY FROM ROBY'S PICKS</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <Block flex row>
+            <Product product={products[1]} style={{ marginRight: theme.SIZES.BASE}} />
+            <Product product={products[2]} style={{ marginRight: theme.SIZES.BASE }} />
+            <Product product={products[3]} style={{ marginRight: theme.SIZES.BASE }} />
+            <Product product={products[4]} style={{ marginRight: theme.SIZES.BASE }} />
+            <Product product={products[2]} />
+          </Block>
+        </ScrollView>
+      </Block>
+    )
+  }
+
   renderCard = () => {
     return(
-      <Card containerStyle={{backgroundColor:"#1D63DC",marginBottom:10}}>
-        <View  >
-        <Card.Title style={{textAlign:'left',fontSize:15,fontWeight:"bold"}}>Halo</Card.Title>
-          <View style={{flex:1,flexDirection:"row"}} >
-            <Icon size={40} name="camera-18" family="GalioExtra" style={{ paddingRight: 8 }} />
-            <Text style={{fontSize:30, fontWeight:"bold", color:"white"}}>ha</Text>
-          </View>
-          <Text style={{color:"white"}} >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
-        </View>
+      <Block style={styles.main} backgroundColor='#2F7AE5'>
+        <Text size={14} style={{marginBottom:5,fontWeight:'bold'}} color="#091a4d">Your Investor type</Text>
+        <Block flex row style={{marginBottom:10}}>
+        <Icon name="hand" family="Entypo"  size={20} color='white' style={styles.iconStyle}/>
+          
+          <Text color='#ffffff' style={{fontSize:20, fontWeight:"bold"}}  >Aggresive investor</Text>
+        </Block>
+        <Text color="#ffffff">{products[1].description}</Text>  
+      </Block>
         
-      </Card>
+        
+     
     )
   }
 
@@ -96,15 +155,8 @@ export default class HomeScreen extends React.Component {
         </View>
         
           
-        <Block flex>
-          <Product product={products[0]} horizontal />
-          <Block flex row>
-            <Product product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Product product={products[2]} />
-          </Block>
-          <Product product={products[3]} horizontal />
-          <Product product={products[4]} full />
-        </Block>
+        
+        {this.renderProduct()}
       </ScrollView>
       </View>
       
@@ -170,15 +222,32 @@ const styles = StyleSheet.create({
   },
   image: {
     
-    height:200,
-    width:width
+    height:300,
+    width:width,
+    margin:5,
+    marginVertical:10
   },
-  FeatureTitle: {
+  FeatureSubtitle: {
     fontSize:30,
     fontWeight:"bold",
     textAlign:'left',
-    marginBottom:10
+    marginVertical:10
   },
+  main: {
+    margin:5,
+    marginBottom:10,
+    marginTop:10,
+    borderRadius:5,
+    paddingLeft:10,
+    paddingVertical:10
+  },
+  blockRow: {
+    margin:5
+  },
+  iconStyle: {
+    margin:5
+  }
+  
   
 
 });

@@ -18,6 +18,7 @@ import { Icon, Header } from '../components';
 import { Images, materialTheme } from "../constants/";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { block } from 'react-native-reanimated';
+import SmartScreen from '../screens/SmartAssesment';
 
 
 
@@ -131,7 +132,40 @@ function HomeStack(props) {
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator component={HomeScreen}>
+    <Tab.Navigator component={HomeScreen}
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = focused
+            ? 'md-home'
+            : 'md-home';
+        } else if (route.name === 'Setting') {
+          iconName = focused ? 'ios-settings' : 'ios-settings';
+        }
+        else if (route.name === 'Component') {
+          iconName = focused ? 'ios-list' : 'ios-list';
+        }
+        else if (route.name === 'Profile') {
+          iconName = focused ? 'ios-person' : 'ios-person';
+        }
+
+        // You can return any component that you like here!
+        if (focused){
+          return <Ionicons name={iconName} size={size} color="#2f7ae5" />;
+        }
+        else{
+          return <Ionicons name={iconName} size={size} color="#e9e9e9" />;
+        }
+        
+      },
+    })}
+    tabBarOptions={{
+      activeTintColor: '#2f7ae5',
+      inactiveTintColor: 'gray',
+    }}
+    >
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Setting" component={SettingsStack}/>
       <Tab.Screen name="Component" component={ComponentsStack}/>
@@ -318,6 +352,20 @@ function AppStack(props) {
           )
         }}
       />
+      <Drawer.Screen
+        name="Smart Assesment"
+        component={SmartScreen}
+        options={{
+          drawerIcon: ({ focused }) => (
+            <Icon
+              size={16}
+              name="md-person-add"
+              family="ionicon"
+              color={focused ? "white" : materialTheme.COLORS.MUTED}
+            />
+          )
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -326,26 +374,7 @@ function AppStack(props) {
 function TabStack(props) {
   return(
     <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
-            } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
-            }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'gray',
-        }}
+        
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
