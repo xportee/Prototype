@@ -9,6 +9,9 @@ import materialTheme from '../constants/Theme';
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
+
+
+
 const ChatButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} >
     <Icon
@@ -44,15 +47,15 @@ const SearchButton = ({isWhite, style, navigation}) => (
   </TouchableOpacity>
 );
 
-const backimgheader = { uri: "https://reactjs.org/logo-og.png"};
+
+
+
 
 class Header extends React.Component {
   handleLeftPress = () => {
     const { back, navigation } = this.props;
     return (back ? navigation.goBack() : navigation.openDrawer());
   }
-
-
 
   renderSearch = () => {
     const { navigation } = this.props;
@@ -68,6 +71,70 @@ class Header extends React.Component {
       />
     )
   }
+
+  renderRight = () => {
+    const { white, title, navigation } = this.props;
+  
+    if (title === 'Title') {
+      return ([
+        <ChatButton key='chat-categories' navigation={navigation} isWhite={white} />,
+        <SearchButton key='search-product' navigation={navigation} isWhite={white} />
+      ]);
+    }
+  
+    switch (title) {
+      case 'Home':
+        return ([
+          <ChatButton key='chat-categories' navigation={navigation} isWhite={white} />,
+          <SearchButton key='search-product' navigation={navigation} isWhite={white} />
+        ]);
+      case 'Deals':
+        return ([
+          <ChatButton key='chat-categories' navigation={navigation} />,
+          <BasketButton key='basket-categories' navigation={navigation} />
+        ]);
+      case 'Categories':
+        return ([
+          <ChatButton key='chat-categories' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-categories' navigation={navigation} isWhite={white} />
+        ]);
+      case 'Category':
+        return ([
+          <ChatButton key='chat-deals' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
+        ]);
+      case 'Profile':
+        return ([
+          <ChatButton key='chat-profile' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
+        ]);
+      case 'Product':
+        return ([
+          <SearchButton key='search-product' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-product' navigation={navigation} isWhite={white} />
+        ]);
+      case 'Search':
+        return ([
+          <ChatButton key='chat-search' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
+        ]);
+      case 'Settings':
+        return ([
+          <ChatButton key='chat-search' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
+        ]);
+      case 'XportShare' :
+        return([
+        <ChatButton key='chat-categories' navigation={navigation} isWhite={white} />,
+        <SearchButton key='search-product' navigation={navigation} isWhite={white} />
+        ]);
+      default:
+        break;
+    }
+  }
+
+
+  
 
 
   renderHeader = () => {
@@ -92,7 +159,7 @@ class Header extends React.Component {
       !noShadow ? styles.shadow : null,
       transparent ? { backgroundColor: 'rgba(0,0,0,0)' } : null,
     ];
-    if(title=='Home'){
+    
       return(
         <Block  style={headerStyles}>
           
@@ -102,7 +169,8 @@ class Header extends React.Component {
             style={styles.navbar}
             transparent={transparent}
             title={title}
-            rightStyle={{ alignItems: 'center' }}
+            right={this.renderRight()}
+            rightStyle={{ alignItems: 'flex-start' }}
             leftStyle={{ flex: 0.3, paddingTop: 2  }}
             leftIconName={(back ? 'chevron-left' : 'navicon')}
             leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
@@ -111,47 +179,22 @@ class Header extends React.Component {
               {color: theme.COLORS[white ? 'WHITE' : 'ICON']},
             ]}
             onLeftPress={this.handleLeftPress}
-          />
-          
-          {this.renderHeader()}
-        </Block>
-      );
-    }
-    else{
-      return (
-        <Block  style={headerStyles}>
-          <Block flex row-reverse>
-            
-          {this.renderHeader()}
-            
-          
-          <NavBar
-            back={back}
-            title={title}
-            style={styles.navbar}
-            transparent={transparent}
-            
-            rightStyle={{ alignItems: 'flex-end' }}
-            leftStyle={{  paddingTop: 2  }}
-            leftIconName={(back ? 'chevron-left' : 'navicon')}
-            leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
-            titleStyle={[
-              styles.title,
-              {color: theme.COLORS[white ? 'WHITE' : 'ICON']},
-            ]}
-            onLeftPress={this.handleLeftPress}
-          />
-          </Block>
-          
+          >{this.renderHeader()}</NavBar>
           
           
         </Block>
-      );
+      )
     }
+}  
+        
+      
     
     
-  }
-}
+      
+    
+    
+  
+
 
 export default withNavigation(Header);
 
@@ -166,9 +209,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   navbar: {
-    paddingVertical: 0,
-    paddingBottom: theme.SIZES.BASE * 1.5,
-    paddingTop: 0,
+    paddingVertical: 5,
+    paddingBottom: theme.SIZES.BASE * 0.2,
+    paddingTop: iPhoneX ? theme.SIZES.BASE*0.2 : theme.SIZES.BASE,
     zIndex: 5,
   },
   shadow: {
@@ -196,15 +239,12 @@ const styles = StyleSheet.create({
     borderRightColor: theme.COLORS.MUTED,
   },
   search: {
-    backgroundColor: theme.COLORS.TRANSPARENT,
-    height: 48,
-    width: width - 32,
-    marginHorizontal: 16,
-    borderWidth: 1,
-    borderRadius: 3,
-    paddingLeft:10,
-    paddingRight:8,
     
+    height: 48,
+    width: width*0.5,
+    marginHorizontal: 6,
+    borderWidth: 1,
+    borderRadius: 35,
   },
   tabs: {
     marginBottom: 24,
@@ -240,3 +280,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000a0"
   }
 })
+  

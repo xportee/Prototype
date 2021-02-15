@@ -1,399 +1,294 @@
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-  Dimensions
-} from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, View, Image } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
+import { Icon, Product} from '../components/';
 
-import { materialTheme, products, Images } from '../constants/';
-import { Select, Icon, Header, Product, Switch } from '../components/';
+import { ProgressBar, Colors } from 'react-native-paper';
+import { CheckBox } from 'react-native-elements';
+
+import { TouchableOpacity} from 'react-native'
 
 const { width } = Dimensions.get('screen');
+import products from '../constants/products';
+import productClass from '../constants/productClass'
 
-const thumbMeasure = (width - 48 - 32) / 3;
 
-export default class Components extends React.Component {
+
+
+
+const tempCheck = [];
+
+
+
+export default class ClassScreen extends React.Component {
+  
   state = {
-    'switch-1': true,
-    'switch-2': false,
-  };
+    docHave: []
 
-  toggleSwitch = switchId => this.setState({ [switchId]: !this.state[switchId] });
+  }
+  handleCheckBox = (id,value) =>{
+    this.setState({ docHave: !this.state.docHave })
+
+    var tempCheckBoxCheck = this.state.docHave;
+    tempCheckBoxCheck[id] = !value;
+
+    this.setState({
+      docHave: tempCheckBoxCheck
+    })
   
-  renderButtons = () => {
+  } 
+  
+
+  
+  renderSearch = () => {
+    const { navigation } = this.props;
+    const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
+
     return (
-      <Block flex>
-        <Text bold size={16} style={styles.title}>Buttons</Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block center>
-            <Button shadowless color={materialTheme.COLORS.DEFAULT} style={[styles.button, styles.shadow]}>
-              DEFAULT
-            </Button>
-          </Block>
-          <Block center>
-            <Button shadowless style={[styles.button, styles.shadow]}>
-              PRIMARY
-            </Button>
-          </Block>
-          <Block center>
-            <Button shadowless color="info" style={[styles.button, styles.shadow]}>
-              INFO
-            </Button>
-          </Block>
-          <Block center>
-            <Button shadowless color="success" style={[styles.button, styles.shadow]}>
-              SUCCESS
-            </Button>
-          </Block>
-          <Block center>
-            <Button shadowless color="warning" style={[styles.button, styles.shadow]}>
-              WARNING
-            </Button>
-          </Block>
-          <Block center>
-            <Button shadowless color="danger" style={[styles.button, styles.shadow]}>
-              ERROR
-            </Button>
-          </Block>
-          <Block row space="evenly">
-            <Block flex left style={{marginTop: 8}}>
-              <Select
-                defaultIndex={1}
-                options={[1, 2, 3, 4, 5]}
-                style={styles.shadow}
-              />
-            </Block>
-            <Block flex center>
-              <Button
-                center
-                shadowless
-                color={materialTheme.COLORS.DEFAULT}
-                textStyle={styles.optionsText}
-                style={[styles.optionsButton, styles.shadow]}>
-                DELETE
-              </Button>
-            </Block>
-            <Block flex={1.25} right>
-              <Button
-                center
-                shadowless
-                color={materialTheme.COLORS.DEFAULT}
-                textStyle={styles.optionsText}
-                style={[styles.optionsButton, styles.shadow]}>
-                SAVE FOR LATER
-              </Button>
-            </Block>
-          </Block>
+      <Input
+        left
+        color="black"
+        style={styles.search}
+        iconContent={iconCamera}
+        placeholder="What are you looking for?"
+        onFocus={() => navigation.navigate('Pro')}
+      />
+    )
+  }
+  
+  renderProgress = () => {
+    const { navigation } = this.props;
+
+    return (
+      <Block >
+        <Text size={14} style={{marginVertical:5}}>Perjalanan Kelas</Text>
+        <ProgressBar progress={0.8} color="#2f7ae5"/>
+        <Block style={{flexDirection:'row-reverse'}}>
+          <Text style={{marginHorizontal:5,fontWeight:'bold'}} color='#2f7ae5'>Kelas Ekspor Pemula</Text>
+          <Text >Kategori Saya</Text>
+          
         </Block>
       </Block>
     )
   }
-  
-  renderText = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Typography</Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Text h1 style={{marginBottom: theme.SIZES.BASE / 2}}>Heading 1</Text>
-          <Text h2 style={{marginBottom: theme.SIZES.BASE / 2}}>Heading 2</Text>
-          <Text h3 style={{marginBottom: theme.SIZES.BASE / 2}}>Heading 3</Text>
-          <Text h4 style={{marginBottom: theme.SIZES.BASE / 2}}>Heading 4</Text>
-          <Text h5 style={{marginBottom: theme.SIZES.BASE / 2}}>Heading 5</Text>
-          <Text p style={{marginBottom: theme.SIZES.BASE / 2}}>Paragraph</Text>
-          <Text muted>This is a muted paragraph.</Text>
-        </Block>
-      </Block>
-    )
-  }
-  
-  renderInputs = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Inputs</Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input
-            right
-            placeholder="icon right"
-            placeholderTextColor={materialTheme.COLORS.DEFAULT}
-            style={{ borderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
-            iconContent={<Icon size={16} color={theme.COLORS.ICON} name="camera-18" family="GalioExtra" />}
+
+  renderDocument = () => {
+    const products = [{
+      id: 1,
+      text:'Dokumen A Indonesia'
+    },
+    {
+      id: 2,
+      text:'Dokumen A Jepang'
+    },
+    {
+      id: 3,
+      text:'Dokumen A Amerika Serikat'
+    },
+    {
+      id:4,
+      text:'Dokumen A Inggris'
+    }];
+    
+
+    
+    const CheckBox = ({ selected, onPress, style, textStyle, size = 30, color = '#211f30', text = '', ...props}) => (
+      <TouchableOpacity style={[styles.checkBox, style]} onPress={onPress} {...props}>
+          <Icon
+              size={size}
+              color={color}
+              name={ selected ? 'check-box' : 'check-box-outline-blank'}
+              family='Ionicons'
           />
-        </Block>
-      </Block>
+  
+          <Text style={textStyle}> {text} </Text>
+      </TouchableOpacity>
+  )
+  
+    return(
+      products.map((val) => {
+        {tempCheck[val.id] = false}
+        return (
+          <Block key={val.id}>
+            <CheckBox selected={this.state.docHave[val.id]} onPress={() => this.handleCheckBox(val.id , this.state.docHave[val.id])} text={val.text}/>
+          </Block>
+        )
+      })
+      
     )
   }
-  
-  renderSwitches = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Switches</Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block row middle space="between" style={{ marginBottom: theme.SIZES.BASE }}>
-            <Text size={14}>Switch is ON</Text>
-            <Switch
-              value={this.state['switch-1']}
-              onValueChange={() => this.toggleSwitch('switch-1')}
-            />
-          </Block>
-          <Block row middle space="between">
-            <Text size={14}>Switch is OFF</Text>
-            <Switch
-              value={this.state['switch-2']}
-              onValueChange={() => this.toggleSwitch('switch-2')}
-            />
-          </Block>
-        </Block>
+
+  renderButton = () => {
+    return(
+      <Block flex style={{flexDirection:'row-reverse'}}>
+        <TouchableOpacity>
+          <Button style={styles.buttonstyle}>
+          <Text size={12} color='#ffffff'>Saya Butuh Bantuan</Text>
+          </Button>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Button style={styles.buttonstyle}>
+          <Text size={12} color='#ffffff'>Unggah Dokumen</Text>
+          </Button>
+        </TouchableOpacity>
+        
+        
       </Block>
+      
     )
   }
+
   
-  renderTableCell = () => {
-    const { navigation } = this.props;
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Table Cell</Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block style={styles.rows}>
-            <TouchableOpacity onPress={() => navigation.navigate('Pro')}>
-              <Block row middle space="between" style={{ paddingTop: 7 }}>
-                <Text size={14}>Manage Options</Text>
-                <Icon name="angle-right" family="font-awesome" style={{ paddingRight: 5 }} />
-              </Block>
-            </TouchableOpacity>
-          </Block>
-        </Block>
+  
+  
+  
+  
+
+  renderCard = () => {
+    return(
+      
+      <Block >
+        <Text size={18} style={{fontWeight:'bold'}}>Kelas Rekomendasi Roby</Text>
+        <TouchableOpacity style={{flexDirection:'row-reverse'}} color='#2'>
+          <Text color='#2f7ae5'>Lihat disini </Text>
+        </TouchableOpacity>   
+        <Product card ikut product={productClass[0]}/>
+        <Product card  product={productClass[0]}/>
+        <Product card  product={productClass[0]}/>
       </Block>
+        
+        
+     
     )
   }
+
   
-  renderNavigation = () => {
+  
+
+  renderProducts = () => {
     return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Navigation</Text>
+      <View>
+        
+        <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.products}>
+        <View style={{marginBottom:10}}>
+          {this.renderProgress()}
+          </View>
+          
         <Block>
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header back title="Title" navigation={this.props.navigation} />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header search title="Title" navigation={this.props.navigation} />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header
-              tabs
-              search
-              title="Title"
-              tabTitleLeft="Option 1"
-              tabTitleRight="Option 2"
-              navigation={this.props.navigation} />
-          </Block>
+          <Text size={16} style={styles.title}>Lengkapi Dokumenmu secara otomatis</Text>
+          {this.renderDocument()}
+          {this.renderButton()}
+          {this.renderCard()}
         </Block>
-      </Block>
-    )
-  }
-  
-  renderSocial = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Social</Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block row center space="between">
-            <Block flex middle right>
-              <Button
-                round
-                onlyIcon
-                shadowless
-                icon="facebook"
-                iconFamily="font-awesome"
-                iconColor={theme.COLORS.WHITE}
-                iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.FACEBOOK}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
-            <Block flex middle center>
-              <Button
-                round
-                onlyIcon
-                shadowless
-                icon="twitter"
-                iconFamily="font-awesome"
-                iconColor={theme.COLORS.WHITE}
-                iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.TWITTER}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
-            <Block flex middle left>
-              <Button
-                round
-                onlyIcon
-                shadowless
-                icon="dribbble"
-                iconFamily="font-awesome"
-                iconColor={theme.COLORS.WHITE}
-                iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.DRIBBBLE}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
-          </Block>
-        </Block>
-      </Block>
-    )
-  }
-  
-  renderCards = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>Cards</Text>
-        <Block flex>
-          <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-            <Product product={products[0]} horizontal />
-            <Block flex row>
-              <Product product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
-              <Product product={products[2]} />
-            </Block>
-            <Product product={products[3]} horizontal />
-            <Product product={products[4]} full />
-            <Block flex card shadow style={styles.category}>
-              <ImageBackground
-                source={{ uri: Images.Products['Accessories'] }}
-                style={[styles.imageBlock, { width: width - (theme.SIZES.BASE * 2), height: 252 }]}
-                imageStyle={{ width: width - (theme.SIZES.BASE * 2), height: 252 }}>
-                <Block style={styles.categoryTitle}>
-                  <Text size={18} bold color={theme.COLORS.WHITE}>Accessories</Text>
-                </Block>
-              </ImageBackground>
-            </Block>
-          </Block>
-        </Block>
-      </Block>
-    )
-  }
-  
-  renderAlbum = () => {
-    const { navigation } = this.props;
-
-    return (
-      <Block flex style={[styles.group, { paddingBottom: theme.SIZES.BASE * 5 }]}>
-        <Text bold size={16} style={styles.title}>Album</Text>
-        <Block style={{ marginHorizontal: theme.SIZES.BASE * 2 }}>
-          <Block flex right>
-            <Text
-              size={12}
-              color={theme.COLORS.PRIMARY}
-              onPress={() => navigation.navigate('Home')}>
-              View All
-            </Text>
-          </Block>
-          <Block row space="between" style={{ marginTop: theme.SIZES.BASE, flexWrap: 'wrap' }} >
-            {Images.Viewed.map((img, index) => (
-              <Block key={`viewed-${img}`} style={styles.shadow}>
-                <Image
-                  resizeMode="cover"
-                  source={{ uri: img }}
-                  style={styles.albumThumb}
-                />
-              </Block>
-            ))}
-          </Block>
-        </Block>
-      </Block>
+      </ScrollView>
+      </View>
+      
     )
   }
 
   render() {
     return (
-      <Block flex center>
-        <ScrollView
-          style={styles.components}
-          showsVerticalScrollIndicator={false}>
-            {this.renderButtons()}
-            {this.renderText()}
-            {this.renderInputs()}
-            {this.renderSwitches()}
-            {this.renderTableCell()}
-            {this.renderNavigation()}
-            {this.renderSocial()}
-            {this.renderCards()}
-            {this.renderAlbum()}
-        </ScrollView>
+      <Block flex center style={styles.home}>
+        {this.renderProducts()}
       </Block>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  components: {
-    width: width
+  home: {
+    width: width,  
+    backgroundColor:'#ffffff'  
   },
-  title: {
-    paddingVertical: theme.SIZES.BASE,
-    paddingHorizontal: theme.SIZES.BASE * 2,
+  search: {
+    height: 48,
+    width: width - 32,
+    marginHorizontal: 16,
+    borderWidth: 1,
+    borderRadius: 3,
   },
-  group: {
-    paddingTop: theme.SIZES.BASE * 3.75,
-  },
-  shadow: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0.2,
-    elevation: 2,
-  },
-  button: {
-    marginBottom: theme.SIZES.BASE,
-    width: width - (theme.SIZES.BASE * 2),
-  },
-  optionsText: {
-    fontSize: theme.SIZES.BASE * 0.75,
-    color: '#4A4A4A',
-    fontWeight: "normal",
-    fontStyle: "normal",
-    letterSpacing: -0.29,
-  },
-  optionsButton: {
-    width: 'auto',
-    height: 34,
-    paddingHorizontal: theme.SIZES.BASE,
-    paddingVertical: 10,
-  },
-  imageBlock: {
-    overflow: 'hidden',
-    borderRadius: 4,
-  },
-  rows: {
-    height: theme.SIZES.BASE * 2,
-  },
-  social: {
-    width: theme.SIZES.BASE * 3.5,
-    height: theme.SIZES.BASE * 3.5,
-    borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: 'center',
-  },
-  category: {
+  header: {
     backgroundColor: theme.COLORS.WHITE,
-    marginVertical: theme.SIZES.BASE / 2,
+    shadowColor: theme.COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.2,
+    elevation: 4,
+    zIndex: 2,
+  },
+  title:{
+    fontSize:16,
+    fontWeight:'bold',
+    marginVertical:10,
+    color:'#000000'
+  },
+  tabs: {
+    marginBottom: 24,
+    marginTop: 10,
+    elevation: 4,
+  },
+  tab: {
+    backgroundColor: theme.COLORS.TRANSPARENT,
+    width: width * 0.50,
+    borderRadius: 0,
     borderWidth: 0,
+    height: 24,
+    elevation: 0,
   },
-  categoryTitle: {
-    height: '100%',
-    paddingHorizontal: theme.SIZES.BASE,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
+  tabTitle: {
+    lineHeight: 19,
+    fontWeight: '300'
   },
-  albumThumb: {
-    borderRadius: 4,
-    marginVertical: 4,
-    alignSelf: 'center',
-    width: thumbMeasure,
-    height: thumbMeasure
+  divider: {
+    borderRightWidth: 0.3,
+    borderRightColor: theme.COLORS.MUTED,
   },
+  products: {
+    width: width - theme.SIZES.BASE * 2,
+    paddingVertical: theme.SIZES.BASE * 2,
+  },
+  image: {
+    
+    height:300,
+    width:width,
+    margin:5,
+    marginVertical:10
+  },
+  FeatureSubtitle: {
+    fontSize:30,
+    fontWeight:"bold",
+    textAlign:'left',
+    marginVertical:10
+  },
+  main: {
+    margin:5,
+    marginBottom:10,
+    marginTop:10,
+    borderRadius:5,
+    paddingLeft:10,
+    paddingVertical:10
+  },
+  blockRow: {
+    margin:5
+  },
+  iconStyle: {
+    margin:5
+  },
+  checkBox: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  buttonstyle: {
+    width:width*0.3,
+    height:30,
+    backgroundColor:'#2f7ae5'
+  }
+  
+  
+
 });

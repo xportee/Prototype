@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Block, Text, theme } from "galio-framework";
 
-import ComponentsScreen from '../screens/Components';
+import ClassScreen from '../screens/Components';
 import HomeScreen from '../screens/Home';
 import OnboardingScreen from '../screens/Onboarding';
 import ProfileScreen from '../screens/Profile';
@@ -19,6 +19,7 @@ import { Images, materialTheme } from "../constants/";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { block } from 'react-native-reanimated';
 import SmartScreen from '../screens/SmartAssesment';
+import XportShareScreen from '../screens/XportShare';
 
 
 
@@ -85,11 +86,11 @@ function ComponentsStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Components"
-        component={ComponentsScreen}
+        name="Class"
+        component={ClassScreen}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Components" scene={scene} navigation={navigation} />
+            <Header tabs title="Class" scene={scene} navigation={navigation} />
           )
         }}
       />
@@ -107,7 +108,6 @@ function HomeStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header 
-              search
               tabs
               title="Home"
               navigation={navigation}
@@ -124,6 +124,27 @@ function HomeStack(props) {
             <Header back white transparent title="" navigation={navigation} scene={scene} />
           ),
           headerTransparent: true
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function XportShareStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen 
+        name="Home"
+        component={XportShareScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header 
+              tabs
+              title="XportShare"
+              navigation={navigation}
+              scene={scene}
+            />
+          )
         }}
       />
     </Stack.Navigator>
@@ -150,6 +171,9 @@ const BottomTabNavigator = () => {
         else if (route.name === 'Profile') {
           iconName = focused ? 'ios-person' : 'ios-person';
         }
+        else if (route.name === 'XportShare') {
+          iconName = focused ? 'ios-pricetag' : 'ios-pricetag';
+        }
 
         // You can return any component that you like here!
         if (focused){
@@ -170,6 +194,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Setting" component={SettingsStack}/>
       <Tab.Screen name="Component" component={ComponentsStack}/>
       <Tab.Screen name="Profile" component={ProfileStack}/>
+      <Tab.Screen name="XportShare" component={XportShareStack}/>
       
       
     </Tab.Navigator>

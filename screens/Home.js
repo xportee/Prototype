@@ -1,108 +1,98 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, View, Image } from 'react-native';
-import { Button, Block, Text, Input, theme } from 'galio-framework';
+import {
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+  View,
+  TouchableOpacity
+  } from 'react-native';
+import { Button, Block, Text, Input, theme, DeckSwiper } from 'galio-framework';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { Icon, Product } from '../components/';
-import { ProgressBar, Colors } from 'react-native-paper';
+import { Images, materialTheme } from '../constants';
+import { HeaderHeight } from "../constants/utils";
 
-
-
-const { width } = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 import products from '../constants/products';
+import { ScrollView } from 'react-native-gesture-handler';
 
+const thumbMeasure = (width - 48 - 32) / 3;
 
-
-export default class HomeScreen extends React.Component {
-  renderSearch = () => {
-    const { navigation } = this.props;
-    const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
-
-    return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        iconContent={iconCamera}
-        placeholder="What are you looking for?"
-        onFocus={() => navigation.navigate('Pro')}
-      />
-    )
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeSlideIndex: 0,
+      carouselItems : [],
+    };
   }
+
+  renderButton = () => {
+    const buttonClickedHandler = () => {
+      console.log('You have been clicked a button!');
+      // do something
+    };
   
-  renderTabs = () => {
-    const { navigation } = this.props;
-
     return (
-      <Block row style={styles.tabs}>
-        <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Pro')}>
-          <Block row middle>
-            <Icon name="grid" family="feather" style={{ paddingRight: 8 }} />
-            <Text size={16} style={styles.tabTitle}>Categories</Text>
-          </Block>
-        </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
-          <Block row middle>
-            <Icon size={16} name="camera-18" family="GalioExtra" style={{ paddingRight: 8 }} />
-            <Text size={16} style={styles.tabTitle}>Best Deals</Text>
-          </Block>
-        </Button>
-      </Block>
-    )
+      <TouchableOpacity
+        onPress={buttonClickedHandler}
+        style={styles.roundButton1}>
+        <Icon name="map-marker" family="font-awesome" color={theme.COLORS.WHITE} size={16} />
+      </TouchableOpacity>
+    );
   }
 
-  renderFeature = () => {
+  renderIcon = () => {
+    const { navigation } = this.props;
+    const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="search" family="material" />
+
     return (
-      <Block styles={styles.main}>
-        <Text size={14} style={{fontSize:14, fontWeight:"bold"}}> Featured Business</Text>
-        <Image source={{uri:products[1].image}} style={styles.image}>
-        
-          
-        </Image>
-        <Block >
-        <Text color="#000000" style={{fontSize:20, fontWeight:"bold"}} >PT. STEINS GATE</Text>
-        <Text size={14} style={{textAlign:'right',marginBottom:5}}>Future Gadget</Text>
-        <Block style={styles.FeatureSubtitle}>
-        <Text size={14}>Menyelamatkan Mayuri dan Kurisu adalah Jalan Ninjaku Kaizokuou ni ore wa naruuu</Text>
-        </Block>
-        <Block style={{marginVertical:10}}>
-          <ProgressBar  progress={0.8} color="#2f7ae5" />
-        </Block>
-        
-        <Block flex row>
-          <Block style={styles.blockRow}>
-            <Text size={14} style={{fontWeight:'bold'}} color='#091a4d'>89%</Text>
-            <Text fontWeight='bold' color='#091a4d'>Funded</Text>
-          </Block >
-          <Block style={styles.blockRow}>
-            <Text size={14} style={{fontWeight:'bold'}} color='#091a4d'>123k</Text>
-            <Text>Inventors</Text>
-          </Block>
-          <Block style={styles.blockRow}>
-            <Text size={14} style={{fontWeight:'bold'}} color='#091a4d'>23</Text>
-            <Text>Days To go</Text>
-          </Block>
-          <Block style={styles.blockRow}>
-            <Block flex row>
-              <Text size={14} style={{fontWeight:'bold'}} color='#2f7ae5'>Rp 100.999.999,00</Text>
-              <Icon name="swap-vert" family="Ionicons"  size={20} color='#000000'/>
+    <Block flex row space="between" style={{marginHorizontal: theme.SIZES.BASE,marginVertical: theme.SIZES.BASE}}>
+      <Block alignItems = "center">
+        {this.renderButton()}
+        <Text color={theme.COLORS.BLACK} size={16}>Fish</Text>
+      </Block>
+      <Block alignItems = "center">
+        {this.renderButton()}
+        <Text color={theme.COLORS.BLACK} size={16}>Crab</Text>
+      </Block>
+      <Block alignItems = "center">
+        {this.renderButton()}
+        <Text color={theme.COLORS.BLACK} size={16}>Crab</Text>
+      </Block>
+      <Block alignItems = "center">
+        {this.renderButton()}
+        <Text color={theme.COLORS.BLACK} size={16}>Crab</Text>
+      </Block>
+    </Block>
+    );
+  };
+
+  renderHeader = () => {
+    return(
+      <Block flex>
+      <ImageBackground
+        source={{uri: Images.Profile}}
+        style={styles.profileContainer}
+        imageStyle={styles.profileImage}>
+        <Block flex style={styles.profileDetails}>
+          <Block style={styles.profileTexts}>
+            <Text color="white" size={28} style={{ paddingBottom: 8 }}>Limited Deals</Text>
+            <Block row space="between">
+              <Block row>
+                <Text color="white" size={16} muted style={styles.seller}>Quality Meat from Argentia</Text>
+              </Block>
             </Block>
-            <Text>Business Value</Text>
           </Block>
-          
+          <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']} style={styles.gradient} />
         </Block>
-        <Block style={{flex:1,flexDirection:'row-reverse'}}>
-          <Icon name="like2" family="AntDesign"  size={20} color='#000000' style={styles.iconStyle}/>
-          <Icon name="send" family="Feather"  size={20} color='#000000' style={styles.iconStyle}/>
-          <Icon name="bookmark" family="Feather"  size={20} color='#000000' style={styles.iconStyle}/>
-        </Block>
-        </Block>
-        
-        
-      
-      </Block>
-      
-    )
-  }
-  
+      </ImageBackground>
+    </Block>
+    );
+  };
+
   renderProduct = () => {
     return (
       <Block style={styles.main}>
@@ -120,54 +110,105 @@ export default class HomeScreen extends React.Component {
     )
   }
 
-  renderCard = () => {
-    return(
-      <Block style={styles.main} backgroundColor='#2F7AE5'>
-        <Text size={14} style={{marginBottom:5,fontWeight:'bold'}} color="#091a4d">Your Investor type</Text>
-        <Block flex row style={{marginBottom:10}}>
-        <Icon name="hand" family="Entypo"  size={20} color='white' style={styles.iconStyle}/>
-          
-          <Text color='#ffffff' style={{fontSize:20, fontWeight:"bold"}}  >Aggresive investor</Text>
+  renderCards = () => {
+    return (
+      <Block>
+        <Text size={14} style={styles.title}>TODAY'S DAILY DEALS</Text>
+        <Block flex style={styles.main}>
+            <Block flex row>
+              <Product minim product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
+              <Product minim product={products[2]} />
+            </Block>
+            <Block flex row>
+              <Product minim product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
+              <Product minim product={products[2]} />
+            </Block>
+            <Block flex row>
+              <Product minim product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
+              <Product minim product={products[2]} />
+            </Block>
         </Block>
-        <Text color="#ffffff">{products[1].description}</Text>  
       </Block>
-        
-        
-     
     )
   }
 
-  
-  
-
-  renderProducts = () => {
+  _renderItem = ({item,index}) => {
     return (
-      <View>
-        
-        <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.products}>
-        <View style={{marginBottom:10}}>
-          {this.renderFeature()}
-          </View>
-        <View>
-          {this.renderCard()}
-        </View>
-        
-          
-        
-        {this.renderProduct()}
-      </ScrollView>
-      </View>
-      
+      <Block style={{
+        backgroundColor:'white',
+        borderRadius: 25,
+        height: (Dimensions.get('window').width*0.8)*9/16,
+        elevation: 5,
+        marginBottom: 3.5,
+        overflow: 'hidden'
+        }}>
+        {
+          <ImageBackground source={{uri: item.image}} style={{ marginRight: theme.SIZES.BASE }}/>
+        }
+      </Block>
     )
+  }
+
+  renderCarousel = () => {
+    return(
+      <Block style={styles.carousel}>
+      <Text size={14} style={styles.title}>YOUR RECOMMENDATION</Text>
+      <Carousel
+        ref={ref => this.carousel = ref}
+        layout={"stack"}
+        data={products}
+        sliderWidth={Dimensions.get('screen').width}
+        itemWidth={Dimensions.get('screen').width*0.8}
+        renderItem={this._renderItem}
+        activeSlideOffset={35}
+        onSnapToItem={ (index) => this.setState({activeSlideIndex: index})}/>
+      <Pagination
+        dotsLength={products.length}
+        activeDotIndex={this.state.activeSlideIndex}
+        dotStyle={{
+          width: 7,
+          height: 7,
+          borderRadius: 5,
+          marginHorizontal: 3,
+          backgroundColor: 'rgba(200, 200, 200, 1)'
+        }}
+        inactiveDotStyle={{
+          backgroundColor: 'rgba(200, 200, 200, 1)'
+        }}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={1}/>
+    </Block>
+    );
   }
 
   render() {
-    return (
-      <Block flex center style={styles.home}>
-        {this.renderProducts()}
+    const elements = [
+      <Block style={{ backgroundColor: '#B23AFC', height: 250, width: 250 }}>
+        <Text>You wanna see a cool component?</Text>
+        <Text>Galio has this cool Deck Swiper</Text>
+      </Block>,
+      <Block style={{ backgroundColor: '#FE2472', height: 250, width: 250 }}>
+        <Text>What did you expect?</Text>
+        <Text>This React Native component works perfectly</Text>
+      </Block>,
+      <Block style={{ backgroundColor: '#FF9C09', height: 250, width: 250 }}>
+        <Text>Maybe you want to build the next Tinder</Text>
+      </Block>,
+      <Block style={{ backgroundColor: '#45DF31', height: 250, width: 250 }}>
+        <Text>or maybe you just want a nice deck swiper component</Text>
+        <Text>Galio has everything sorted out for you</Text>
       </Block>
+    ];
+    return (
+      <ScrollView>
+        <Block flex>
+          {this.renderHeader()}
+          {this.renderIcon()}
+          {this.renderCarousel()}
+          {this.renderProduct()}
+          {this.renderCards()}
+        </Block>
+      </ScrollView>
     );
   }
 }
@@ -181,7 +222,7 @@ const styles = StyleSheet.create({
     width: width - 32,
     marginHorizontal: 16,
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 40,
   },
   header: {
     backgroundColor: theme.COLORS.WHITE,
@@ -217,37 +258,79 @@ const styles = StyleSheet.create({
     borderRightColor: theme.COLORS.MUTED,
   },
   products: {
-    width: width - theme.SIZES.BASE * 2,
+    width: width - theme.SIZES.BASE * 1,
     paddingVertical: theme.SIZES.BASE * 2,
   },
-  image: {
-    
-    height:300,
-    width:width,
-    margin:5,
-    marginVertical:10
+  carousel: {
+    marginTop : theme.SIZES.BASE * 1,
+    marginBottom : theme.SIZES.BASE * 0.5,
   },
-  FeatureSubtitle: {
-    fontSize:30,
-    fontWeight:"bold",
-    textAlign:'left',
-    marginVertical:10
+  main : {
+    paddingHorizontal : theme.SIZES.BASE * 1,
+    marginBottom : theme.SIZES.BASE * 1,
   },
-  main: {
-    margin:5,
-    marginBottom:10,
-    marginTop:10,
-    borderRadius:5,
-    paddingLeft:10,
-    paddingVertical:10
+  title: {
+    paddingVertical: theme.SIZES.BASE,
+    marginHorizontal: theme.SIZES.BASE,
   },
-  blockRow: {
-    margin:5
+  profile: {
+    marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
+    marginBottom: -HeaderHeight * 2,
   },
-  iconStyle: {
-    margin:5
-  }
-  
-  
-
+  profileImage: {
+    width: width * 1.1,
+    height: 'auto',
+  },
+  profileContainer: {
+    width: width,
+    height: height / 2,
+  },
+  profileDetails: {
+    paddingTop: theme.SIZES.BASE * 4,
+    justifyContent: 'flex-end',
+    position: 'relative',
+  },
+  profileTexts: {
+    paddingHorizontal: theme.SIZES.BASE * 2,
+    paddingVertical: theme.SIZES.BASE * 2,
+    zIndex: 2
+  },
+  options: {
+    position: 'relative',
+    padding: theme.SIZES.BASE,
+    marginHorizontal: theme.SIZES.BASE,
+    marginTop: -theme.SIZES.BASE * 7,
+    borderTopLeftRadius: 13,
+    borderTopRightRadius: 13,
+    backgroundColor: theme.COLORS.WHITE,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 8,
+    shadowOpacity: 0.2,
+    zIndex: 2,
+  },
+  thumb: {
+    borderRadius: 4,
+    marginVertical: 4,
+    alignSelf: 'center',
+    width: thumbMeasure,
+    height: thumbMeasure
+  },
+  gradient: {
+    zIndex: 1,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '30%',
+    position: 'absolute',
+  },
+  roundButton1: {
+    width: 70,
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: '#2f7ae5',
+  },
 });
