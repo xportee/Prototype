@@ -7,6 +7,9 @@ function parseCommand(message) {
   if (message[0].text.includes("market")) {
     return (responseMarket());
   }
+  else if (message[0].text.includes("dokumen")){
+    return (responseDokumen());
+  }
   return responseNull();
 }
  
@@ -25,6 +28,23 @@ function responseNull(){
     }
   )
 }
+
+function responseDokumen(){
+  id = id +1;
+  return(
+    {
+      _id: id,
+      text: 'Cek Dokumen yang harus kamu lengkapi',
+      createdAt: new Date(),
+      user: {
+        _id: 2,
+        name: 'React Native',
+        avatar: 'https://placeimg.com/140/140/any',
+      },
+    }
+  )
+}
+
  
 function responseMarket(){
   id = id +1;
