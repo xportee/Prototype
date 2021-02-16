@@ -39,10 +39,10 @@ export default class XportShareScreen extends React.Component {
           
         </Image>
         <Block >
-        <Text color="#000000" style={{fontSize:20, fontWeight:"bold"}} >PT. STEINS GATE</Text>
-        <Text size={14} style={{textAlign:'right',marginBottom:5}}>Future Gadget</Text>
+        <Text color="#000000" style={{fontSize:20, fontWeight:"bold"}} >PT. Sapi Jaya</Text>
+        <Text size={14} style={{textAlign:'right',marginBottom:5}}>Daging Sapi Berkualitas</Text>
         <Block style={styles.FeatureSubtitle}>
-        <Text size={14}>Menyelamatkan Mayuri dan Kurisu adalah Jalan Ninjaku Kaizokuou ni ore wa naruuu</Text>
+        <Text size={14}>Kami mempunyai visi menciptakan daging sapi kualitas tinggi yang siap dibeli</Text>
         </Block>
         <Block style={{marginVertical:10}}>
           <ProgressBar  progress={0.8} color="#2f7ae5" />

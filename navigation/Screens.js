@@ -20,7 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { block } from 'react-native-reanimated';
 import XportShareScreen from '../screens/XportShare';
 import MarketScreen from '../screens/MarketIntelligence';
-import Example from '../screens/chat';
+import Example from '../screens/Chat';
 
 
 
@@ -228,10 +228,8 @@ const BottomTabNavigator = () => {
     }}
     >
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Setting" component={SettingsStack}/>
-      <Tab.Screen name="Component" component={ComponentsStack}/>
-      <Tab.Screen name="Profile" component={ProfileStack}/>
-      <Tab.Screen name="XportShare" component={XportShareStack}/>
+      <Tab.Screen name="XportSchool" component={ComponentsStack}/>
+      <Tab.Screen name="XportFund" component={XportShareStack}/>
       
       
     </Tab.Navigator>
