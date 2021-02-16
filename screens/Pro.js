@@ -41,13 +41,6 @@ export default class Pro extends React.Component {
                   source={require('../assets/images/android.png')}
                   style={{ height: 38, width: 140 }} />
               </Block>
-              <Button
-                shadowless
-                style={styles.button}
-                color={materialTheme.COLORS.BUTTON_COLOR}
-                onPress={() => navigation.navigate('Home')}>
-                GET PRO VERSION
-              </Button>
             </Block>
           </Block>
         </Block>

@@ -1,5 +1,5 @@
 const Onboarding = 'https://source.unsplash.com/kyCNGGKCvyw/840x840';
-const Pro = 'https://source.unsplash.com/kyCNGGKCvyw/840x840';
+const Pro = 'https://source.unsplash.com/kyCNGGKCvyw/1800x90';
 const Products = {
   'Accessories': 'https://source.unsplash.com//l1MCA0VyNrk/840x840',
 };
