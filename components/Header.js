@@ -13,7 +13,7 @@ const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 
 
 
 const ChatButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} >
+  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Chat')}>
     <Icon
       family="GalioExtra"
       size={16}
@@ -25,7 +25,7 @@ const ChatButton = ({isWhite, style, navigation}) => (
 );
 
 const BasketButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} >
+  <TouchableOpacity style={[styles.button, style]}  >
     <Icon
       family="GalioExtra"
       size={16}

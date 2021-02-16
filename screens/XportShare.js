@@ -110,7 +110,7 @@ export default class XportShareScreen extends React.Component {
           
           <Text color='#ffffff' style={{fontSize:20, fontWeight:"bold"}}  >Aggresive investor</Text>
         </Block>
-        <Text color="#ffffff">{products[1].description}</Text>  
+        <Text color="#ffffff">You are Tolerant to high risk in aiming return</Text>  
       </Block>
         
         

@@ -18,8 +18,9 @@ import { Icon, Header } from '../components';
 import { Images, materialTheme } from "../constants/";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { block } from 'react-native-reanimated';
-import SmartScreen from '../screens/SmartAssesment';
 import XportShareScreen from '../screens/XportShare';
+import MarketScreen from '../screens/MarketIntelligence';
+import Example from '../screens/chat';
 
 
 
@@ -126,6 +127,21 @@ function HomeStack(props) {
           headerTransparent: true
         }}
       />
+      <Stack.Screen 
+        name="Chat"
+        component={Example}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header 
+              tabs
+              title="Chat"
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -149,6 +165,27 @@ function XportShareStack(props) {
       />
     </Stack.Navigator>
   );
+}
+
+function MarketStack(props){
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen 
+        name="Market Intelligence"
+        component={MarketScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header 
+              tabs
+              title="Market Intelligence"
+              navigation={navigation}
+              scene={scene}
+            />
+          )
+        }}
+      />
+    </Stack.Navigator>
+  )
 }
 
 const BottomTabNavigator = () => {
@@ -249,14 +286,18 @@ function AppStack(props) {
         }}
       />
       <Drawer.Screen
-        name="Woman"
-        component={ProScreen}
+        name="Market Intelligence"
+        component={MarketStack}
         options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Settings" scene={scene} navigation={navigation} />
+          ),
+        
           drawerIcon: ({ focused }) => (
             <Icon
               size={16}
-              name="md-woman"
-              family="ionicon"
+              name="man"
+              family="entypo"
               color={focused ? "white" : materialTheme.COLORS.MUTED}
               style={{ marginLeft: 4, marginRight: 4 }}
             />
@@ -377,35 +418,13 @@ function AppStack(props) {
           )
         }}
       />
-      <Drawer.Screen
-        name="Smart Assesment"
-        component={SmartScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="md-person-add"
-              family="ionicon"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
+      
     </Drawer.Navigator>
   );
 }
 
 
-function TabStack(props) {
-  return(
-    <Tab.Navigator
-        
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-  )
-}
+
 
 export default function OnboardingStack(props) {
   return (

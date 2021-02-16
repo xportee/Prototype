@@ -18,7 +18,7 @@ function CustomDrawerContent({
   const insets = useSafeArea();
   const screens = [
     "Home",
-    "Woman",
+    "Market Intelligence",
     "Man",
     "Kids",
     "New Collection",
