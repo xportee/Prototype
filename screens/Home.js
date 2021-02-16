@@ -60,11 +60,11 @@ export default class Home extends React.Component {
       </Block>
       <Block alignItems = "center">
         {this.renderButton()}
-        <Text color={theme.COLORS.BLACK} size={16}>Crab</Text>
+        <Text color={theme.COLORS.BLACK} size={16}>Coffee</Text>
       </Block>
       <Block alignItems = "center">
         {this.renderButton()}
-        <Text color={theme.COLORS.BLACK} size={16}>Crab</Text>
+        <Text color={theme.COLORS.BLACK} size={16}>Beef</Text>
       </Block>
     </Block>
     );
@@ -120,8 +120,8 @@ export default class Home extends React.Component {
               <Product minim product={products[2]} />
             </Block>
             <Block flex row>
-              <Product minim product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
-              <Product minim product={products[2]} />
+              <Product minim product={products[3]} style={{ marginRight: theme.SIZES.BASE }} />
+              <Product minim product={products[4]} />
             </Block>
             <Block flex row>
               <Product minim product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
