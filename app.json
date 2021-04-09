@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "rn-material-kit-free",
-    "description": "React Native - Material Kit Free",
-    "slug": "rn-material-kit-free",
+    "name": "Xportee",
+    "description": "Xportee for Hackathones",
+    "slug": "xportee",
     "privacy": "unlisted",
     "sdkVersion": "39.0.0",
     "platforms": [
@@ -11,7 +11,7 @@
     ],
     "version": "1.7.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/favicon.png",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "cover",
@@ -25,6 +25,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.syahrizailm.xportee"
     }
   }
 }

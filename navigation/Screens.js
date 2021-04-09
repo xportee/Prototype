@@ -20,6 +20,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { block } from 'react-native-reanimated';
 import XportShareScreen from '../screens/XportShare';
 import MarketScreen from '../screens/MarketIntelligence';
+import NewsScreen from '../screens/News';
+import BusinessScreen from '../screens/Business';
 import Example from '../screens/Chat';
 
 
@@ -33,9 +35,9 @@ const Drawer = createDrawerNavigator();
 
 
 const profile = {
-  avatar: Images.Profile,
+  avatar: Images.Avatar,
   name: "Rachel Brown",
-  type: "Seller",
+  type: "Investor",
   plan: "Pro",
   rating: 4.8
 };
@@ -99,6 +101,36 @@ function ComponentsStack(props) {
   );
 }
 
+function NewsStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="News"
+        component={NewsScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header tabs title="News" scene={scene} navigation={navigation} />
+          )
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function BusinessStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Business"
+        component={BusinessScreen}
+        options={{
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+
 
 function HomeStack(props) {
   return (
@@ -128,16 +160,15 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen 
+        name="Business"
+        component={BusinessScreen}
+      />
+      <Stack.Screen 
         name="Chat"
         component={Example}
         options={{
           header: ({ navigation, scene }) => (
-            <Header 
-              tabs
-              title="Chat"
-              navigation={navigation}
-              scene={scene}
-            />
+            <Header back white transparent title="" navigation={navigation} scene={scene} />
           ),
           
         }}
@@ -171,13 +202,13 @@ function MarketStack(props){
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen 
-        name="Market Intelligence"
+        name="Dashboard"
         component={MarketScreen}
         options={{
           header: ({ navigation, scene }) => (
             <Header 
               tabs
-              title="Market Intelligence"
+              title="Dashboard"
               navigation={navigation}
               scene={scene}
             />
@@ -190,27 +221,27 @@ function MarketStack(props){
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator component={HomeScreen}
+    <Tab.Navigator
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
-
         if (route.name === 'Home') {
           iconName = focused
             ? 'md-home'
             : 'md-home';
-        } else if (route.name === 'Setting') {
-          iconName = focused ? 'ios-settings' : 'ios-settings';
+        } else if (route.name === 'XportSchool') {
+          iconName = focused ? 'md-book' : 'md-book';
         }
-        else if (route.name === 'Component') {
-          iconName = focused ? 'ios-list' : 'ios-list';
+        else if (route.name === 'XportFund') {
+          iconName = focused ? 'md-cash' : 'md-cash';
         }
-        else if (route.name === 'Profile') {
-          iconName = focused ? 'ios-person' : 'ios-person';
+        else if (route.name === 'News') {
+          iconName = focused ? 'md-document' : 'md-document';
         }
-        else if (route.name === 'XportShare') {
-          iconName = focused ? 'ios-pricetag' : 'ios-pricetag';
+        else if (route.name === 'Dashboard') {
+          iconName = focused ? 'md-person' : 'md-person';
         }
+
 
         // You can return any component that you like here!
         if (focused){
@@ -230,6 +261,9 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="XportSchool" component={ComponentsStack}/>
       <Tab.Screen name="XportFund" component={XportShareStack}/>
+      <Tab.Screen name="News" component={NewsStack}/>
+      <Tab.Screen name="Dashboard" component={MarketStack}/>
+      
       
       
     </Tab.Navigator>
@@ -239,23 +273,22 @@ const BottomTabNavigator = () => {
 function AppStack(props) {
   return (
     <Drawer.Navigator
-      drawerPosition="right"
+      drawerPosition="left"
       style={{ flex: 1 }}
       drawerContent={props => (
         <CustomDrawerContent {...props} profile={profile} />
       )}
       drawerStyle={{
         backgroundColor: "white",
-        width: width * 0.8
+        width: width * 0.6
       }}
       drawerContentOptions={{
         activeTintColor: "white",
         inactiveTintColor: "#000",
-        activeBackgroundColor: materialTheme.COLORS.ACTIVE,
+        activeBackgroundColor: "#439CEF",
         inactiveBackgroundColor: "transparent",
         itemStyle: {
           width: width * 0.74,
-          paddingHorizontal: 12,
           // paddingVertical: 4,
           justifyContent: "center",
           alignContent: "center",
@@ -278,145 +311,30 @@ function AppStack(props) {
               size={16}
               name="shop"
               family="GalioExtra"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
+              color={focused ? "white" : "#439CEF"}
             />
           )
         }}
       />
       <Drawer.Screen
-        name="Market Intelligence"
-        component={MarketStack}
+        name="Chat"
+        component={Example}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Settings" scene={scene} navigation={navigation} />
+            <Header back title="Chat" scene={scene} navigation={navigation} />
           ),
         
           drawerIcon: ({ focused }) => (
             <Icon
               size={16}
-              name="man"
+              name="book"
               family="entypo"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
+              color={focused ? "white" : "#439CEF"}
               style={{ marginLeft: 4, marginRight: 4 }}
             />
           )
         }}
       />
-      <Drawer.Screen
-        name="Man"
-        component={ProScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="man"
-              family="entypo"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="Kids"
-        component={ProScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="baby"
-              family="GalioExtra"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="New Collection"
-        component={ProScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="grid-on"
-              family="material"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="Profile"
-        component={ProfileStack}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="circle-10"
-              family="GalioExtra"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={SettingsStack}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="gears"
-              family="font-awesome"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-              style={{ marginRight: -3 }}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="Components"
-        component={ComponentsStack}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="md-switch"
-              family="ionicon"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-              style={{ marginRight: 2, marginLeft: 2 }}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="Sign In"
-        component={ProScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="ios-log-in"
-              family="ionicon"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen
-        name="Sign Up"
-        component={ProScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="md-person-add"
-              family="ionicon"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          )
-        }}
-      />
-      
     </Drawer.Navigator>
   );
 }
@@ -425,9 +343,8 @@ function AppStack(props) {
 
 
 export default function OnboardingStack(props) {
-  return (
-    
-      <Stack.Navigator mode="card" headerMode="none">
+  return (  
+    <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
         name="Onboarding"
         component={OnboardingScreen}
@@ -435,14 +352,8 @@ export default function OnboardingStack(props) {
           headerTransparent: true
         }}
       />
-      <Stack.Screen name="App" component={AppStack} />
-      
-      
-    
+      <Stack.Screen name="App" component={AppStack} /> 
     </Stack.Navigator>
-    
-    
-    
   );
 }
 

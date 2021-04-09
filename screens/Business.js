@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions, ScrollView, View, Image } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { Icon, Product } from '../components';
 import { ProgressBar, Colors } from 'react-native-paper';
-import { withNavigation } from '@react-navigation/compat';
 import materialTheme from '../constants/Theme';
 
 
@@ -13,7 +12,7 @@ import products from '../constants/products';
 
 
 
-class XportShareScreen extends React.Component {
+export default class BusinessScreen extends React.Component {
   renderSearch = () => {
     const { navigation } = this.props;
     const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
@@ -32,7 +31,7 @@ class XportShareScreen extends React.Component {
   
 
 
-  renderFeature = (navigation) => {
+  renderFeature = () => {
     return (
       <Block styles={styles.main}>
         <Text size={14} style={{fontSize:14, fontWeight:"bold"}}> Featured Business</Text>
@@ -41,7 +40,7 @@ class XportShareScreen extends React.Component {
           
         </Image>
         <Block >
-        <Text color="#000000" style={{fontSize:20, fontWeight:"bold"}} >PT. Kopi Harum</Text>
+        <Text color="#000000" style={{fontSize:20, fontWeight:"bold"}} >PT. Bisnis</Text>
         <Text size={14} style={{textAlign:'right',marginBottom:5}}>High Quality Coffee</Text>
         <Block style={styles.FeatureSubtitle}>
         <Text size={14}>We have been experienced in exporting high-quality sumatra coffee to 3 countries</Text>
@@ -77,10 +76,6 @@ class XportShareScreen extends React.Component {
           <Icon name="send" family="Feather"  size={20} color='#000000' style={styles.iconStyle}/>
           <Icon name="bookmark" family="Feather"  size={20} color='#000000' style={styles.iconStyle}/>
         </Block>
-        <Block style={{
-            flex: 1, 
-            alignItems: 'center',
-        }}>
         <Block alignItems='space-between' flexDirection="row">
         <Button
             shadowless
@@ -95,8 +90,13 @@ class XportShareScreen extends React.Component {
             <Text style={{color:materialTheme.COLORS.BUTTON_COLOR}}>Buy Stock</Text>
         </Button>
         </Block>
+
         </Block>
 
+        <Block> 
+        <Text size={14} style={{marginVertical:10,fontWeight:'bold'}} >Business's Statistics</Text>
+        <Image source={require('../assets/images/Stats.png')} style={styles.image}/>
+        
         </Block>
         
         
@@ -158,7 +158,7 @@ class XportShareScreen extends React.Component {
   
   
 
-  renderProducts = (navigation) => {
+  renderProducts = () => {
     return (
       <View>
         
@@ -166,15 +166,8 @@ class XportShareScreen extends React.Component {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.products}>
         <View style={{marginBottom:10}}>
-          {this.renderFeature(navigation)}
+          {this.renderFeature()}
           </View>
-        <View>
-          {this.renderCard()}
-        </View>
-        
-          
-        
-        {this.renderProduct()}
       </ScrollView>
       </View>
       
@@ -185,13 +178,11 @@ class XportShareScreen extends React.Component {
     const { navigation } = this.props;
     return (
       <Block flex center style={styles.home}>
-        {this.renderProducts(navigation)}
+        {this.renderProducts()}
       </Block>
     );
   }
 }
-
-export default withNavigation(XportShareScreen);
 
 const styles = StyleSheet.create({
   home: {
@@ -243,11 +234,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.SIZES.BASE * 2,
   },
   image: {
-    
-    height:300,
     width:width,
-    margin:5,
-    marginVertical:10
   },
   FeatureSubtitle: {
     fontSize:30,

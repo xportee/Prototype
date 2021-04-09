@@ -36,27 +36,27 @@ export default class MarketScreen extends React.Component {
   renderMap = () => {
     return(
       <Block> 
-        <Text size={14} style={{marginVertical:10,fontWeight:'bold'}} >Lokasi Penjual</Text>
-        <Image source={require('../assets/images/x3.jpg')} style={styles.image}/>
+        <Text size={14} style={{marginVertical:10,fontWeight:'bold'}} >Buyer's Location</Text>
+        <Image source={require('../assets/images/Map.png')} style={styles.image}/>
         
         <Block>
           <Block flex row>
             <Block style = {styles.circle} >
-              <Text size={18} style={{fontWeight:'bold'}} color="#ffffff"> 1</Text>
+              <Text size={12} color="#ffffff"> 1</Text>
             </Block>
-            <Text style={{margin:10,fontWeight:'bold'}} size={20} color='#2f7ae5'>Denpasar,Bali</Text>
+            <Text style={{margin:5}} size={16} color='#2f7ae5'>Denpasar,Bali</Text>
             </Block>
           <Block flex row>
-            <Block style = {styles.circleOther} >
-              <Text size={16} style={{fontWeight:'bold'}} color="#ffffff"> 2</Text>
+            <Block style = {styles.circle} >
+              <Text size={12} color="#ffffff"> 2</Text>
             </Block>
-            <Text style={{margin:10,fontWeight:'bold'}} size={20}>Banyuwangi, East Java</Text>
+            <Text style={{margin:5}} size={13}>Banyuwangi, East Java</Text>
           </Block>
           <Block flex row>
-            <Block style = {styles.circleOther} >
-              <Text size={16} style={{fontWeight:'bold'}} color="#ffffff"> 3</Text>
+            <Block style = {styles.circle} >
+              <Text size={12} color="#ffffff"> 3</Text>
             </Block>
-            <Text style={{margin:10,fontWeight:'bold'}} size={20}>Singaraja,Bali</Text>
+            <Text style={{margin:5}} size={13}>Singaraja,Bali</Text>
           </Block>
         </Block>
       </Block>
@@ -72,7 +72,7 @@ export default class MarketScreen extends React.Component {
         <Block >
         <Divider style={{marginVertical:10}}/>
         </Block>
-        <Text size={20} style={{fontWeight:'bold'}} color="#707070">Saran Roby Untuk Kamu</Text>
+        <Text size={20} style={{fontWeight:'bold'}} color="#707070">Roby's Recommendation for You</Text>
         
       
       </Block>
@@ -99,25 +99,25 @@ export default class MarketScreen extends React.Component {
       <Block>
           <Block flex row >
           <Block flex space="between" style={{margin:10}}>
-            <Text style={{marginBottom:10,fontWeight:'bold'}} color="#2f7ae5"> Dokumen tidak Terverifikasi</Text>
-            <Text size={12}> Dokumen ABC</Text>
-            <Text size={12}> Dokumen ABC</Text>
+            <Text style={{marginBottom:10,fontWeight:'bold'}} color="#2f7ae5">Not verified Document</Text>
+            <Text size={12}>A Document</Text>
+            <Text size={12}>B Document</Text>
             <Button style={styles.buttonstyle}>
-              Cek Dokumen
+              Check
             </Button>
           </Block>
           <Block flex space="between" style={styles.productDescription}>
-          <Text style={{marginBottom:10,fontWeight:'bold'}} color="#2f7ae5"> Dokumen belum di-upload</Text>
-            <Text> Dokumen ABC</Text>
-            <Text> Dokumen ABC</Text>
+          <Text style={{marginBottom:10,fontWeight:'bold'}} color="#2f7ae5">Not uploaded Document</Text>
+            <Text size={12}>A Document</Text>
+            <Text size={12}>B Document</Text>
             <Button style={styles.buttonstyle}>
-              Masukkan
+              Upload
             </Button>
           </Block>
         </Block >
         <TouchableOpacity style={{flexDirection:'row-reverse'}}>
           
-          <Text color="#2f7ae5"> Saya Butuh Bantuan dari Roby</Text>
+          <Text color="#2f7ae5">I Need Help</Text>
           <Icon name="questioncircle" family="AntDesign" color="#2f7ae5"/>
         </TouchableOpacity>
       </Block>
@@ -127,27 +127,26 @@ export default class MarketScreen extends React.Component {
 
   renderCardDescription2 = () => {
     return(
+      <Block>
       <Block flex row>
-        <Image source={require('../assets/images/x3.jpg')} style={styles.imageCard}/>
-        <Block flex space="between" style={styles.productDescription}>
-          <Text color="#2f7ae5">Barang Terjual Bulan ini</Text>
-        
-          <Text >1 Ikan gurame</Text>
-          <Block style={{flexDirection:'row-reverse'}}>
-            <Text size={10} flex style={{flexDirection:'row-reverse'}}>(123 Tons)</Text>
+        <Image source={require('../assets/images/Barang.png')} style={styles.imageCard}/>         
+      </Block>
+        <Block style={styles.productDescription}>
+          <Text color="#2f7ae5">Sold Commodities</Text>  
+          <Text >1 Ikan gurame (123 Tons)</Text>
+          <Text>2 Ikan Kakap (80 Tons)</Text>      
+          <Text>3 Ikan Lele (12 Tons)</Text>
+        </Block>
+        <Block style={styles.productDescription}>
+          <Text color="#2f7ae5"  style={{fontWeight:'bold'}}>Restock Ikan Gurame</Text>  
+          <Text >
+            Roby analyzed that Ikan Gurame will have high potential to be sold again due to high demand in Philiphine
+          </Text>
+          <Block style={{alignItems:"center"}}>
+          <Button style={styles.buttonstyle2}>
+              Ask Advice from Mentor
+          </Button>
           </Block>
-          <Text>2 Ikan Kakap</Text>
-          <Block style={{flexDirection:'row-reverse'}}>
-              <Text size={10} flex style={{flexDirection:'row-reverse'}}>(80 Tons)</Text>
-          </Block>
-          
-          <Text>3 Ikan Lele</Text>
-          <Block style={{flexDirection:'row-reverse'}}>
-          <Text size={10} flex style={{flexDirection:'row-reverse'}}>(12 Tons)</Text>
-          </Block>
-
-          
-          
         </Block>
       </Block>
     )
@@ -205,9 +204,8 @@ export default class MarketScreen extends React.Component {
       <View>
         
         <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.products}>
-        <View style={{marginBottom:10}}>
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.products}>
           {this.renderFeature()}
           </View>
         
@@ -275,12 +273,12 @@ const styles = StyleSheet.create({
     borderRightColor: theme.COLORS.MUTED,
   },
   products: {
-    width: width - theme.SIZES.BASE * 2,
+    width: width -theme.SIZES.BASE * 2,
     paddingVertical: theme.SIZES.BASE * 2,
   },
   image: {
     
-    height:300,
+    height:200,
     width:width,
     margin:5,
     marginVertical:10
@@ -292,12 +290,6 @@ const styles = StyleSheet.create({
     marginVertical:10
   },
   main: {
-    margin:5,
-    marginBottom:10,
-    marginTop:10,
-    borderRadius:5,
-    paddingLeft:10,
-    paddingVertical:10
   },
   blockRow: {
     margin:5
@@ -307,25 +299,26 @@ const styles = StyleSheet.create({
   },
   circle: {
     borderRadius: 20,
-    width: 40,
-    height: 40,
+    width: 20,
+    height: 20,
     backgroundColor:'#2f7ae5',
     justifyContent: 'center',
     alignItems: 'center',
-    margin:10
+    margin:5
   },
   circleOther: {
     borderRadius: 20,
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     backgroundColor:'#E1F0FF',
     justifyContent: 'center',
     alignItems: 'center',
-    margin:10
+    margin:5
   },
   allCard: {
     backgroundColor:'#E1F0FF',
-    padding:5
+    padding:5,
+    borderRadius:20,
   },
   product: {
     backgroundColor: theme.COLORS.WHITE,
@@ -333,6 +326,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     minHeight: 114,
     width:200
+
     
   },
   productClass: {
@@ -340,7 +334,10 @@ const styles = StyleSheet.create({
     marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
-    width:350
+    width:350,
+    borderRadius:20,
+    padding:5,
+    margin:5
     
   },
   productTitle: {
@@ -358,7 +355,6 @@ const styles = StyleSheet.create({
   },
   imageCard: {
     borderRadius: 3,
-    marginHorizontal: theme.SIZES.BASE / 2,
     marginTop: -16,
   },
   imageClass: {
@@ -384,7 +380,14 @@ const styles = StyleSheet.create({
   buttonstyle: {
     width:width*0.3,
     height:30,
-    backgroundColor:'#2f7ae5'
+    backgroundColor:'#2f7ae5',
+    borderRadius:20,
+  },  
+  buttonstyle2: {
+    width:width*0.6,
+    height:40,
+    backgroundColor:'#2f7ae5',
+    borderRadius:20,
   }
   
   

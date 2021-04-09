@@ -73,11 +73,11 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : materialTheme.COLORS.MUTED}
           />
         );
-      case "Settings":
+      case "Chat":
         return (
           <Icon
             size={16}
-            name="gears"
+            name="snapchat"
             family="font-awesome"
             color={focused ? "white" : materialTheme.COLORS.MUTED}
           />

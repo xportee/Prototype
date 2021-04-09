@@ -27,7 +27,7 @@ export default class Onboarding extends React.Component {
             style={styles.button}
             color={materialTheme.COLORS.BUTTON_COLOR}
             onPress={() => navigation.navigate('App')}>
-            Mulai
+            Start
           </Button>
         </Block>
       </Block>

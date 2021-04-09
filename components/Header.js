@@ -24,18 +24,6 @@ const ChatButton = ({isWhite, style, navigation}) => (
   </TouchableOpacity>
 );
 
-const BasketButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]}  >
-    <Icon
-      family="GalioExtra"
-      size={16}
-      name="basket-simple"
-      color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
-    <Block middle style={styles.notify} />
-  </TouchableOpacity>
-);
-
 const SearchButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} >
     <Icon
@@ -46,10 +34,6 @@ const SearchButton = ({isWhite, style, navigation}) => (
     />
   </TouchableOpacity>
 );
-
-
-
-
 
 class Header extends React.Component {
   handleLeftPress = () => {
@@ -83,11 +67,6 @@ class Header extends React.Component {
     }
   
     switch (title) {
-      case 'Home':
-        return ([
-          <ChatButton key='chat-categories' navigation={navigation} isWhite={white} />,
-          <SearchButton key='search-product' navigation={navigation} isWhite={white} />
-        ]);
       case 'Deals':
         return ([
           <ChatButton key='chat-categories' navigation={navigation} />,
@@ -123,11 +102,6 @@ class Header extends React.Component {
           <ChatButton key='chat-search' navigation={navigation} isWhite={white} />,
           <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
         ]);
-      case 'XportShare' :
-        return([
-        <ChatButton key='chat-categories' navigation={navigation} isWhite={white} />,
-        <SearchButton key='search-product' navigation={navigation} isWhite={white} />
-        ]);
       default:
         break;
     }
@@ -142,7 +116,6 @@ class Header extends React.Component {
     if (search ) {
       return (
         <Block center>
-          
           {search ? this.renderSearch() : null}
         </Block>
       )
@@ -200,7 +173,7 @@ export default withNavigation(Header);
 
 const styles = StyleSheet.create({
   button: {
-    padding: 12,
+    padding: 1,
     position: 'relative',
   },
   title: {
@@ -209,9 +182,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   navbar: {
-    paddingVertical: 5,
-    paddingBottom: theme.SIZES.BASE * 0.2,
-    paddingTop: iPhoneX ? theme.SIZES.BASE*0.2 : theme.SIZES.BASE,
     zIndex: 5,
   },
   shadow: {

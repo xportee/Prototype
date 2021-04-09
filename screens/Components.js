@@ -61,11 +61,11 @@ export default class ClassScreen extends React.Component {
 
     return (
       <Block >
-        <Text size={14} style={{marginVertical:5}}>Perjalanan Kelas</Text>
+        <Text size={14} style={{marginVertical:5}}>Your Export's Journey</Text>
         <ProgressBar progress={0.8} color="#2f7ae5"/>
         <Block style={{flexDirection:'row-reverse'}}>
-          <Text style={{marginHorizontal:5,fontWeight:'bold'}} color='#2f7ae5'>Kelas Ekspor Pemula</Text>
-          <Text >Kategori Saya</Text>
+          <Text style={{marginHorizontal:5,fontWeight:'bold'}} color='#2f7ae5'>Beginner Export</Text>
+          <Text >My Category: </Text>
           
         </Block>
       </Block>
@@ -75,19 +75,19 @@ export default class ClassScreen extends React.Component {
   renderDocument = () => {
     const products = [{
       id: 1,
-      text:'Dokumen A Indonesia'
+      text:'A Document'
     },
     {
       id: 2,
-      text:'Dokumen A Jepang'
+      text:'B Document'
     },
     {
       id: 3,
-      text:'Dokumen A Amerika Serikat'
+      text:'C Document'
     },
     {
       id:4,
-      text:'Dokumen A Inggris'
+      text:'D Document'
     }];
     
 
@@ -123,12 +123,12 @@ export default class ClassScreen extends React.Component {
       <Block flex style={{flexDirection:'row-reverse'}}>
         <TouchableOpacity>
           <Button style={styles.buttonstyle}>
-          <Text size={12} color='#ffffff'>Saya Butuh Bantuan</Text>
+          <Text size={12} color='#ffffff'>I need Help</Text>
           </Button>
         </TouchableOpacity>
         <TouchableOpacity>
           <Button style={styles.buttonstyle}>
-          <Text size={12} color='#ffffff'>Unggah Dokumen</Text>
+          <Text size={12} color='#ffffff'>Upload Document</Text>
           </Button>
         </TouchableOpacity>
         
@@ -148,13 +148,13 @@ export default class ClassScreen extends React.Component {
     return(
       
       <Block >
-        <Text size={18} style={{fontWeight:'bold'}}>Kelas Rekomendasi Roby</Text>
+        <Text size={18} style={{fontWeight:'bold'}}>Roby's Class Recommendation</Text>
         <TouchableOpacity style={{flexDirection:'row-reverse'}} color='#2'>
-          <Text color='#2f7ae5'>Lihat disini </Text>
+          <Text color='#2f7ae5'>View</Text>
         </TouchableOpacity>   
         <Product card ikut product={productClass[0]}/>
-        <Product card  product={productClass[0]}/>
-        <Product card  product={productClass[0]}/>
+        <Product card  product={productClass[1]}/>
+        <Product card  product={productClass[4]}/>
       </Block>
         
         
@@ -177,7 +177,7 @@ export default class ClassScreen extends React.Component {
           </View>
           
         <Block>
-          <Text size={16} style={styles.title}>Lengkapi Dokumenmu secara otomatis</Text>
+          <Text size={16} style={styles.title}>Upload your Document</Text>
           {this.renderDocument()}
           {this.renderButton()}
           {this.renderCard()}
@@ -286,7 +286,8 @@ const styles = StyleSheet.create({
   buttonstyle: {
     width:width*0.3,
     height:30,
-    backgroundColor:'#2f7ae5'
+    backgroundColor:'#2f7ae5',
+    borderRadius:20,
   }
   
   

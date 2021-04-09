@@ -1,19 +1,19 @@
 export default [
     {
-      title: 'Paham Ekspor dari Awal sampai akhir',
+      title: 'Learn the basic of Export',
       image: 'https://source.unsplash.com/kyCNGGKCvyw/840x840',
       price: 180,
       horizontal: true,
       type:'Farming',
-      description:'Pelajari teknis mendaptakan izin untuk ekspor bersama para mentor yang siap membimbing kamu 24 jam',
+      description:'Learn about export from our mentor',
       people:200
     },
     {
-      title: 'Tanaman obat asli magelang',
+      title: 'Product Fotography',
       image: 'https://source.unsplash.com/OPafDCTNbzE/840x840',
       price: 220,
       type:'Farming',
-      description:'Lorem ipsum dolor sit amet',
+      description:'Learn how to potray your product appealingly',
       people:200
     },
     {
@@ -29,16 +29,15 @@ export default [
       image: 'https://source.unsplash.com/G_oWb_hcfx8/840x840',
       description:'Lorem ipsum dolor sit amet',
       price: 188,
-      horizontal: true,
       type:'Farming',
       people:200
     },
     {
-      title: 'Biji kopi sumatera berkualitas',
-      image: 'https://source.unsplash.com/Ws4wd-vJ9M0/840x840',
+      title: 'High-quality Production',
+      image: 'https://source.unsplash.com/XOhI_kW_TaM/840x840',
       price: 180,
       type:'Farming',
-      description:'Lorem ipsum dolor sit amet',
+      description:'Learn how to increase your quality for export',
       people:200
     },
   ];

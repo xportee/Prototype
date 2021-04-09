@@ -27,7 +27,7 @@ export default class Profile extends React.Component {
                     <Block middle style={styles.pro}>
                       <Text size={16} color="white">Pro</Text>
                     </Block>
-                    <Text color="white" size={16} muted style={styles.seller}>Seller</Text>
+                    <Text color="white" size={16} muted style={styles.seller}>Investor</Text>
                     <Text size={16} color={materialTheme.COLORS.WARNING}>
                       4.8 <Icon name="shape-star" family="GalioExtra" size={14} />
                     </Text>

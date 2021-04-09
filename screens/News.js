@@ -5,7 +5,8 @@ import {
   ImageBackground,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  TouchableWithoutFeedback
   } from 'react-native';
 import { Button, Block, Text, Input, theme, DeckSwiper } from 'galio-framework';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -18,12 +19,12 @@ import { HeaderHeight } from "../constants/utils";
 import { Card, ListItem} from 'react-native-elements';
 
 const { width, height } = Dimensions.get('screen');
-import products from '../constants/products';
+import products from '../constants/news';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const thumbMeasure = (width - 48 - 32) / 3;
 
-export default class Home extends React.Component {
+export default class News extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +58,7 @@ export default class Home extends React.Component {
 
     return (
       <SearchBar
-        placeholder="Type Here..."
+        placeholder="Search for News..."
         onChangeText={this.updateSearch}
         value={search}
         round
@@ -68,14 +69,14 @@ export default class Home extends React.Component {
   };
 
   renderPortfolio = () => {
-
     return (
       <Block style={styles.main}>
-        <Text size={18} style={{marginBottom:10, marginLeft:theme.SIZES.BASE, fontWeight:"bold"}}>Your Portfolio</Text>
+        <Text size={18} style={{marginBottom:10, marginLeft:theme.SIZES.BASE, fontWeight:"bold"}}>Your News Recommendation</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <Block flex row>
-            <Product portfolio product={products[5]} style={{ marginLeft: theme.SIZES.BASE, marginRight: theme.SIZES.BASE, borderWidth:1, borderColor:"#439CEF"}} />
-            <Product portfolio product={products[6]} style={{ borderWidth:1, marginRight: theme.SIZES.BASE, borderColor:"#439CEF" }}/>
+            <Block flex row>
+            <Product news product={products[5]} style={{ marginLeft: theme.SIZES.BASE, marginRight: theme.SIZES.BASE, borderWidth:1, borderColor:"#439CEF"}} />
+            <Product news product={products[1]} style={{ marginRight: theme.SIZES.BASE, borderWidth:1, borderColor:"#439CEF"}} />
+            <Product news product={products[2]} style={{ borderWidth:1, marginRight: theme.SIZES.BASE, borderColor:"#439CEF" }}/>
           </Block>
         </ScrollView>
       </Block>
@@ -84,23 +85,38 @@ export default class Home extends React.Component {
 
   renderHeader = () => {
     return(
-      <Block flex>
-      <ImageBackground
-        source={{uri: Images.Profile}}
-        style={styles.profileContainer}
-        imageStyle={styles.profileImage}>
-        <Block flex style={styles.profileDetails}>
-          <Block style={styles.profileTexts}>
-            <Text color="white" size={28} style={{ paddingBottom: 8 }}>New Listing</Text>
-            <Block row space="between">
-              <Block row>
-                <Text color="white" size={16} muted style={styles.seller}>PT. Kopi Makassar</Text>
-              </Block>
-            </Block>
-          </Block>
-          <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']} style={styles.gradient} />
-        </Block>
-      </ImageBackground>
+    <Block>
+    <Text size={18} style={{marginBottom:10, marginLeft:theme.SIZES.BASE, fontWeight:"bold"}}>Hot News</Text>
+    <Card containerStyle={styles.card}>
+        <Card.Title>Why Sumatra Coffee will be a popular Export Commodities</Card.Title>
+        <Card.Divider style={{backgroundColor:materialTheme.COLORS.BUTTON_COLOR}}/>
+        <Card.Image source={{uri:'https://images.unsplash.com/photo-1577161618325-2663fcfb4636?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2976&q=80'}}/>
+        <Text style={{margin: 10}}>
+            You may have heard about Sumatra Cofffee. You go to a coffee store near your office, order a coffee,
+            and all of a sudden the barista asks about the kind of coffee you wanna drink. "Sumatra Coffee" or...
+        </Text>
+    </Card>
+    <Card containerStyle={styles.card}>
+        <Card.Title>10 Trends that will shape Export in 2021</Card.Title>
+        <Card.Divider style={{backgroundColor:materialTheme.COLORS.BUTTON_COLOR}}/>
+        <Card.Image source={{uri:'https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'}}/>
+        <Text style={{margin: 10}}>
+            Export surely is dynamic. Globalization means more and more people are influenced by another country's culture.
+            This means more and more Commodities will be exported. Our research team predict that...
+        </Text>
+    </Card>
+    <Card containerStyle={styles.card}>
+        <Card.Title>Export potential from Indonesia</Card.Title>
+        <Card.Divider style={{backgroundColor:materialTheme.COLORS.BUTTON_COLOR}}/>
+        <Card.Image source={{uri:'https://images.unsplash.com/photo-1598193957011-39b9f2916992?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'}}/>
+        <Text style={{margin: 20}}>
+            Islands, nature, green, sea, culture. Indonesia is home to more than 17000 islands and many tribes. 
+            Which means : Export Potential. Our team has analyzed which export Commodities...
+        </Text>
+    </Card>
+    <Block style={{alignItems:"center", marginVertical:10}}>
+        <Text size={20} color='#2f7ae5'>See More...</Text>
+    </Block>
     </Block>
     );
   };
@@ -197,10 +213,9 @@ export default class Home extends React.Component {
     return (
       <ScrollView>
         <Block flex style={{backgroundColor: 'white'}}>
-          {this.renderHeader()}
           {this.renderSearch()}
           {this.renderPortfolio()}
-          {this.renderProduct()}
+          {this.renderHeader()}
         </Block>
       </ScrollView>
     );
@@ -326,5 +341,33 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 100,
     backgroundColor: '#2f7ae5',
+  },
+  card:{
+    borderRadius: 30,
+  },
+  product: {
+    backgroundColor: theme.COLORS.WHITE,
+    marginVertical: theme.SIZES.BASE,
+    borderWidth: 0,
+    minHeight: 114,
+    width:200,
+    shadowRadius:3,
+    borderWidth:1, borderColor:"#439CEF"
+  },
+  productClass: {
+    backgroundColor: theme.COLORS.WHITE,
+    marginVertical: theme.SIZES.BASE,
+    borderWidth: 0,
+    minHeight: 114,
+    shadowRadius:3,
+  },
+  productTitle: {
+    flex: 1,
+    flexWrap: 'wrap',
+    paddingBottom: 6,
+    fontWeight:'bold'
+  },
+  productDescription: {
+    padding: theme.SIZES.BASE / 2,
   },
 });
